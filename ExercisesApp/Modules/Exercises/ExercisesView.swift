@@ -34,7 +34,6 @@ class ExercisesView: ViewController, ExercisesViewInput, UISearchResultsUpdating
 
     func showExercises(_ exercises: [Exercise]) {
         self.exercises = exercises
-        tableView.reloadData()
     }
 
     override func viewDidLoad() {

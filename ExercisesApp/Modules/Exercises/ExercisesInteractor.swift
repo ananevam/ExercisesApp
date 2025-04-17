@@ -2,7 +2,7 @@ import Foundation
 
 protocol ExercisesInteractorInput {
     var output: ExercisesInteractorOutput? {get set}
-    func loadExercises()
+    func loadExercises(muscle: MuscleEntity?)
 }
 
 protocol ExercisesInteractorOutput: AnyObject {
@@ -11,7 +11,18 @@ protocol ExercisesInteractorOutput: AnyObject {
 
 class ExercisesInteractor: ExercisesInteractorInput {
     weak var output: ExercisesInteractorOutput?
-    func loadExercises() {
-        output?.didLoadExercises(ExerciseManager.shared.exercises)
+    func loadExercises(muscle: MuscleEntity?) {
+        let allExercises = ExerciseManager.shared.exercises
+
+        let filteredExercises: [Exercise]
+        if let muscle = muscle {
+            filteredExercises = allExercises.filter { exercise in
+                exercise.primaryMuscles.contains(muscle.name) ||
+                exercise.secondaryMuscles.contains(muscle.name)
+            }
+        } else {
+            filteredExercises = allExercises
+        }
+        output?.didLoadExercises(filteredExercises)
     }
 }

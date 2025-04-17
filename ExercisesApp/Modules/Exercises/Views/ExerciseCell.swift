@@ -45,7 +45,7 @@ class ExerciseCell: UITableViewCell {
 
     private func setupUI() {
         image.snp.makeConstraints { make in
-            make.size.equalTo(40)
+            make.size.equalTo(80)
         }
         contentView.addSubview(mainStack)
         mainStack.snp.makeConstraints {

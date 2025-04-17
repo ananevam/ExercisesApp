@@ -3,22 +3,18 @@ import Foundation
 final class ExerciseManager {
     static let shared = ExerciseManager()
 
-    private(set) lazy var exercises: [Exercise] = {
-        loadExercises()
-        return exercises
-    }()
+    private(set) lazy var exercises: [Exercise] = []
     // "beginner", "intermediate", "expert"
     private(set) var levels: [String] = []
     // "isolation", "compound"
     private(set) var mechanics: Set<String> = []
     // "olympic weightlifting", "cardio", "powerlifting", "strength", "strongman", "stretching", "plyometrics"
     private(set) var categories: Set<String> = []
-    private var _muscles: Set<String> = []
-    var muscles: [String] {
-        return _muscles.sorted()
-    }
+    private(set) var muscles: [MuscleEntity] = []
 
-    private init() {}
+    private init() {
+        loadExercises()
+    }
 
     private func loadExercises() {
         guard let url = Bundle.main.url(forResource: "exercises", withExtension: "json") else {
@@ -55,6 +51,6 @@ final class ExerciseManager {
         let primaryMuscles = exercises.compactMap { $0.primaryMuscles }.flatMap { $0 }
         let secondaryMuscles = exercises.compactMap { $0.secondaryMuscles }.flatMap { $0 }
         let allMuscles = Set(primaryMuscles + secondaryMuscles)
-        _muscles = allMuscles
+        muscles = allMuscles.sorted().map { MuscleEntity(name: $0) }
     }
 }

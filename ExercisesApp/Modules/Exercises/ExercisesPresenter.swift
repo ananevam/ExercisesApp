@@ -5,12 +5,14 @@ class ExercisesPresenter {
     var interactor: ExercisesInteractorInput
     var router: ExercisesRouterInput
     private var allExercises: [Exercise] = []
-
+    private let mucle: MuscleEntity?
     init(
+        mucle: MuscleEntity?,
         view: ExercisesViewInput,
         interactor: ExercisesInteractorInput,
         router: ExercisesRouterInput
     ) {
+        self.mucle = mucle
         self.view = view
         self.interactor = interactor
         self.router = router
@@ -30,7 +32,7 @@ extension ExercisesPresenter: ExercisesViewOutput {
     }
 
     func viewDidLoad() {
-        interactor.loadExercises()
+        interactor.loadExercises(muscle: mucle)
     }
 
     func searchTextChanged(_ text: String?) {
