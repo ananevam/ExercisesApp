@@ -13,6 +13,10 @@ final class ExerciseManager {
     private(set) var mechanics: Set<String> = []
     // "olympic weightlifting", "cardio", "powerlifting", "strength", "strongman", "stretching", "plyometrics"
     private(set) var categories: Set<String> = []
+    private var _muscles: Set<String> = []
+    var muscles: [String] {
+        return _muscles.sorted()
+    }
 
     private init() {}
 
@@ -47,5 +51,10 @@ final class ExerciseManager {
 
         mechanics = Set(exercises.compactMap { $0.mechanic })
         categories = Set(exercises.map { $0.category })
+
+        let primaryMuscles = exercises.compactMap { $0.primaryMuscles }.flatMap { $0 }
+        let secondaryMuscles = exercises.compactMap { $0.secondaryMuscles }.flatMap { $0 }
+        let allMuscles = Set(primaryMuscles + secondaryMuscles)
+        _muscles = allMuscles
     }
 }
