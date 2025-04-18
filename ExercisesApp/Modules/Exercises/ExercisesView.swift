@@ -3,12 +3,12 @@ import SnapKit
 
 protocol ExercisesViewInput: AnyObject {
     var output: ExercisesViewOutput? { get set }
-    func showExercises(_ exercises: [Exercise])
+    func showExercises(_ exercises: [ExerciseEntity])
 
 }
 protocol ExercisesViewOutput: AnyObject {
     func viewDidLoad()
-    func didSelectExercise(_ exercise: Exercise)
+    func didSelectExercise(_ exercise: ExerciseEntity)
     func searchTextChanged(_ text: String?)
 }
 
@@ -26,13 +26,13 @@ class ExercisesView: ViewController, ExercisesViewInput, UISearchResultsUpdating
         return tableView
     }()
     private var searchController: UISearchController!
-    private var exercises: [Exercise] = [] {
+    private var exercises: [ExerciseEntity] = [] {
         didSet {
             tableView.reloadData()
         }
     }
 
-    func showExercises(_ exercises: [Exercise]) {
+    func showExercises(_ exercises: [ExerciseEntity]) {
         self.exercises = exercises
     }
 

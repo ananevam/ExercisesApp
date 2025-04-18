@@ -1,0 +1,110 @@
+[
+  {
+    "id": "legs",
+    "name": {
+      "ru": "Ноги",
+      "en": "Legs"
+    },
+    "description": {
+      "ru": "Основные мышцы нижней части тела, включая квадрицепсы, бицепсы бедра, ягодицы. Используются для ходьбы, бега, прыжков и приседаний.",
+      "en": "Major muscles of the lower body, including quadriceps, hamstrings, and glutes. Used for walking, running, jumping, and squatting."
+    },
+    "image": "legs",
+  },
+  {
+    "id": "back",
+    "name": {
+      "ru": "Спина",
+      "en": "Back"
+    },
+    "description": {
+      "ru": "Большая группа мышц, поддерживающих позвоночник и туловище. Включает широчайшие, трапеции, ромбовидные и выпрямители спины. Важны для осанки и тяговых движений.",
+      "en": "Large muscle group supporting the spine and torso. Includes lats, traps, rhomboids, and erector spinae. Important for posture and pulling movements."
+    },
+    "image": "back3"
+  },
+  {
+    "id": "abs",
+    "name": {
+      "ru": "Мышцы пресса",
+      "en": "Abs"
+    },
+    "description": {
+      "ru": "Мышцы кора в передней части туловища (прямые, косые). Жизненно важны для стабилизации корпуса, осанки и сгибания туловища.",
+      "en": "Core muscles in the front of the torso (rectus abdominis, obliques). Vital for core stability, posture, and bending movements."
+    },
+    "image": "abs"
+  },
+  {
+    "id": "calves",
+    "name": {
+      "ru": "Голень",
+      "en": "Calves"
+    },
+    "description": {
+      "ru": "Мышцы задней поверхности нижней части ноги (икроножная, камбаловидная). В основном участвуют в движении стопы и голеностопа (подъем на носки).",
+      "en": "Muscles on the back of the lower leg (gastrocnemius, soleus). Primarily involved in foot and ankle movement (plantarflexion)."
+    },
+    "image": "calves",
+  },
+  {
+    "id": "forearms",
+    "name": {
+      "ru": "Предплечья",
+      "en": "Forearms"
+    },
+    "description": {
+      "ru": "Мышцы между локтем и запястьем. Контролируют движения запястья и пальцев, ключевые для силы хвата.",
+      "en": "Muscles located between the elbow and wrist. Control wrist and finger movements, crucial for grip strength."
+    },
+    "image": "forearms",
+  },
+  {
+    "id": "shoulders",
+    "name": {
+      "ru": "Плечи",
+      "en": "Shoulders"
+    },
+    "description": {
+      "ru": "Дельтовидные мышцы, окружающие плечевой сустав. Отвечают за подъем и вращение руки в различных направлениях.",
+      "en": "Deltoid muscles surrounding the shoulder joint. Responsible for arm elevation and rotation in multiple directions."
+    },
+    "image": "shoulders",
+  },
+  {
+    "id": "chest",
+    "name": {
+      "ru": "Грудные мышцы",
+      "en": "Chest"
+    },
+    "description": {
+      "ru": "Большие мышцы (пекторальные) на передней части верхнего туловища. В основном используются для жимовых движений и сведения рук.",
+      "en": "Large muscles (pectorals) on the front of the upper torso. Primarily used for pushing movements and bringing arms together."
+    },
+    "image": "chest2"
+  },
+  {
+    "id": "triceps",
+    "name": {
+      "ru": "Трицепсы",
+      "en": "Triceps"
+    },
+    "description": {
+      "ru": "Трехглавая мышца на задней стороне плеча (верхней части руки). Отвечает за разгибание локтя (выпрямление руки).",
+      "en": "Three-headed muscle on the back of the upper arm. Responsible for extending the elbow (straightening the arm)."
+    },
+    "image": "triceps2"
+  },
+  {
+    "id": "biceps",
+    "name": {
+      "ru": "Бицепсы",
+      "en": "Biceps"
+    },
+    "description": {
+      "ru": "Двуглавая мышца на передней стороне плеча (верхней части руки). В основном используется для сгибания локтя (подтягивание предплечья к плечу).",
+      "en": "Two-headed muscle on the front of the upper arm. Primarily used for flexing the elbow (bending the arm)."
+    },
+    "image": "biceps2",
+  }
+]

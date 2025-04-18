@@ -1,8 +1,7 @@
 import UIKit
 import Kingfisher
 
-class SlideshowView: UIView {
-    private let imageView = UIImageView()
+class SlideshowView: UIImageView {
     var imageUrls: [URL] = [] {
         didSet {
             startSlideshow()
@@ -13,21 +12,12 @@ class SlideshowView: UIView {
 
     init() {
         super.init(frame: .zero)
-        setupUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupUI() {
-        imageView.contentMode = .scaleAspectFit
-        addSubview(imageView)
-
-        imageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
 
     private func startSlideshow() {
         guard !imageUrls.isEmpty else { return }
@@ -42,7 +32,7 @@ class SlideshowView: UIView {
 
     private func loadImage(at index: Int) {
         let url = imageUrls[index]
-        imageView.kf.setImage(with: url)
+        setImageWithAspectFit(with: url)
     }
 
     func stopSlideshow() {

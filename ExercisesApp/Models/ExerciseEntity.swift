@@ -1,17 +1,16 @@
 import Foundation
 
-struct Exercise: Codable {
-    let id: String
-    let name: String
-    let force: String?
-    let level: String
-    let mechanic: String?
-    let equipment: String?
+struct ExerciseEntity: Decodable {
+    let name: LocalizedValue<[String: String]>
+    let description: LocalizedValue<[String: String]>
     let primaryMuscles: [String]
     let secondaryMuscles: [String]
-    let instructions: [String]
-    let category: String
+    let instructions: LocalizedValue<[String: [String]]>
     let images: [String]
+
+    lazy var muscles = {
+        return ExerciseManager.shared.muscles.filter { primaryMuscles.contains($0.id) }
+    }()
 
     var imageUrl: URL? {
         let img = images.first

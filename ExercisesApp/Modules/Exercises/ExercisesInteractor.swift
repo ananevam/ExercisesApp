@@ -6,7 +6,7 @@ protocol ExercisesInteractorInput {
 }
 
 protocol ExercisesInteractorOutput: AnyObject {
-    func didLoadExercises(_ exercises: [Exercise])
+    func didLoadExercises(_ exercises: [ExerciseEntity])
 }
 
 class ExercisesInteractor: ExercisesInteractorInput {
@@ -14,11 +14,10 @@ class ExercisesInteractor: ExercisesInteractorInput {
     func loadExercises(muscle: MuscleEntity?) {
         let allExercises = ExerciseManager.shared.exercises
 
-        let filteredExercises: [Exercise]
+        let filteredExercises: [ExerciseEntity]
         if let muscle = muscle {
             filteredExercises = allExercises.filter { exercise in
-                exercise.primaryMuscles.contains(muscle.name) ||
-                exercise.secondaryMuscles.contains(muscle.name)
+                exercise.primaryMuscles.contains(muscle.id)
             }
         } else {
             filteredExercises = allExercises

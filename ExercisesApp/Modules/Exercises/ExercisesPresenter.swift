@@ -4,7 +4,7 @@ class ExercisesPresenter {
     weak var view: ExercisesViewInput?
     var interactor: ExercisesInteractorInput
     var router: ExercisesRouterInput
-    private var allExercises: [Exercise] = []
+    private var allExercises: [ExerciseEntity] = []
     private let mucle: MuscleEntity?
     init(
         mucle: MuscleEntity?,
@@ -20,14 +20,14 @@ class ExercisesPresenter {
 }
 
 extension ExercisesPresenter: ExercisesInteractorOutput {
-    func didLoadExercises(_ exercises: [Exercise]) {
+    func didLoadExercises(_ exercises: [ExerciseEntity]) {
         allExercises = exercises
         view?.showExercises(exercises)
     }
 }
 
 extension ExercisesPresenter: ExercisesViewOutput {
-    func didSelectExercise(_ exercise: Exercise) {
+    func didSelectExercise(_ exercise: ExerciseEntity) {
         router.navigateToExercise(exercise)
     }
 
@@ -45,9 +45,7 @@ extension ExercisesPresenter: ExercisesViewOutput {
         }
 
         let filtered = allExercises.filter { exercise in
-            exercise.name.lowercased().contains(searchText.lowercased()) ||
-            exercise.level.lowercased().contains(searchText.lowercased()) ||
-            exercise.category.lowercased().contains(searchText.lowercased())
+            exercise.name.localized.lowercased().contains(searchText.lowercased())
         }
 
         view?.showExercises(filtered)
