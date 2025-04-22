@@ -18,7 +18,6 @@ class SlideshowView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
 
-
     private func startSlideshow() {
         guard !imageUrls.isEmpty else { return }
         loadImage(at: currentIndex)
