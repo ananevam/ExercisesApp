@@ -35,4 +35,17 @@ public class Workout: NSManagedObject {
             return []
         }
     }
+    static func fetchBy(
+        id: UUID, context: NSManagedObjectContext = CoreDataManager.shared.viewContext
+    ) -> Workout? {
+        let request: NSFetchRequest<Workout> = fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        request.fetchLimit = 1
+
+        do {
+            return try context.fetch(request).first
+        } catch {
+            return nil
+        }
+    }
 }
