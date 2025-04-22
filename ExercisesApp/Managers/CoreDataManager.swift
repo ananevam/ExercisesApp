@@ -39,7 +39,7 @@ final class CoreDataManager {
             try viewContext.save()
             return workout
         } catch {
-            print("Saving error: \(error)")
+            print("Unresolved error: \(error)")
             return nil
         }
     }
@@ -50,6 +50,15 @@ final class CoreDataManager {
             return try viewContext.fetch(fetchRequest)
         } catch {
             return []
+        }
+    }
+    func deleteWorkout(_ workout: Workout) {
+        viewContext.delete(workout)
+
+        do {
+            try viewContext.save()
+        } catch {
+            print("Unresolved error: \(error)")
         }
     }
 }

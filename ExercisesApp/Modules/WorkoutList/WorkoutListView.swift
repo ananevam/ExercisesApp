@@ -10,6 +10,8 @@ protocol WorkoutListViewOutput: AnyObject {
     func didSelectItem(_ item: Workout)
     func didTapAddWorkout()
     func didEnterWorkoutName(_ name: String)
+    func didTapEdit(_ item: Workout)
+    func didTapDelete(_ item: Workout)
 }
 
 class WorkoutListView: ViewController, WorkoutListViewInput {
@@ -74,5 +76,27 @@ extension WorkoutListView: UITableViewDataSource {
 extension WorkoutListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let item = items[indexPath.row]
+        let deleteAction = UIContextualAction(
+            style: .destructive, title: nil
+        ) { [weak self] (_, _, completionHandler) in
+            self?.output?.didTapDelete(item)
+            completionHandler(true)
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        let editAction = UIContextualAction(
+            style: .normal, title: nil
+        ) { [weak self] (_, _, completionHandler) in
+            self?.output?.didTapEdit(item)
+            completionHandler(true)
+        }
+        editAction.image = UIImage(systemName: "pencil")
+        editAction.backgroundColor = .systemOrange
+
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
 }

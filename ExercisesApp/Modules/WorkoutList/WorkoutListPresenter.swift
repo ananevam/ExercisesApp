@@ -23,6 +23,18 @@ extension WorkoutListPresenter: WorkoutListInteractorOutput {
 }
 
 extension WorkoutListPresenter: WorkoutListViewOutput {
+    func didTapDelete(_ item: Workout) {
+        router.showDeleteConfirmation(item) { [weak self] in
+            self?.didConfirmDeleteWorkout(item)
+        }
+    }
+
+    func didTapEdit(_ item: Workout) {
+        router.presentEditWorkoutAlert(item) { [weak self] name in
+            self?.didUpdateWorkoutName(item, name: name)
+        }
+    }
+
     func didSelectItem(_ item: Workout) {
         router.navigateToItem(item)
     }
@@ -38,5 +50,12 @@ extension WorkoutListPresenter: WorkoutListViewOutput {
 
     func didEnterWorkoutName(_ name: String) {
         interactor.saveWorkout(name: name)
+    }
+
+    func didUpdateWorkoutName(_ item: Workout, name: String) {
+        interactor.updateWorkout(item, name: name)
+    }
+    func didConfirmDeleteWorkout(_ item: Workout) {
+        interactor.deleteWorkout(item)
     }
 }

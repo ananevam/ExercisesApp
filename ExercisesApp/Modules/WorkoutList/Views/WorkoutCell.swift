@@ -3,6 +3,13 @@ import SnapKit
 import Kingfisher
 
 class WorkoutCell: UITableViewCell {
+    private let bgView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .cardBackground
+        view.layer.cornerRadius = 16
+        view.clipsToBounds = true
+        return view
+    }()
     private let nameLabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
@@ -13,6 +20,7 @@ class WorkoutCell: UITableViewCell {
             nameLabel,
         ])
         stack.spacing = 8
+
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .fill
@@ -29,9 +37,14 @@ class WorkoutCell: UITableViewCell {
     }
 
     private func setupUI() {
-        contentView.addSubview(mainStack)
+        contentView.addSubview(bgView)
+        bgView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
+        }
+        bgView.addSubview(mainStack)
+
         mainStack.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalToSuperview().inset(16)
         }
     }
 
