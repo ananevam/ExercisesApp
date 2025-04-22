@@ -14,4 +14,25 @@ public class Workout: NSManagedObject {
         let request = NSFetchRequest<Workout>(entityName: String(describing: Workout.self))
         return request
     }
+
+    convenience init(name: String,
+                     context: NSManagedObjectContext = CoreDataManager.shared.viewContext) {
+        self.init(context: context)
+        self.name = name
+    }
+
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        id = UUID()
+        createdAt = Date()
+    }
+    static func fetchAll(context: NSManagedObjectContext = CoreDataManager.shared.viewContext) -> [Workout] {
+        let fetchRequest: NSFetchRequest<Workout> = fetchRequest()
+
+        do {
+            return try context.fetch(fetchRequest)
+        } catch {
+            return []
+        }
+    }
 }

@@ -13,7 +13,7 @@ final class CoreDataManager {
         return container
     }()
 
-    private var viewContext: NSManagedObjectContext {
+    var viewContext: NSManagedObjectContext {
         persistentContainer.viewContext
     }
 
@@ -29,31 +29,9 @@ final class CoreDataManager {
             }
         }
     }
-    func saveWorkout(name: String) -> Workout? {
-        let workout = Workout(context: viewContext)
-        workout.id = UUID()
-        workout.name = name
-        workout.createdAt = Date()
 
-        do {
-            try viewContext.save()
-            return workout
-        } catch {
-            print("Unresolved error: \(error)")
-            return nil
-        }
-    }
-    func loadWorkouts() -> [Workout] {
-        let fetchRequest: NSFetchRequest<Workout>  = Workout.fetchRequest()
-
-        do {
-            return try viewContext.fetch(fetchRequest)
-        } catch {
-            return []
-        }
-    }
-    func deleteWorkout(_ workout: Workout) {
-        viewContext.delete(workout)
+    func delete(_ item: NSManagedObject) {
+        viewContext.delete(item)
 
         do {
             try viewContext.save()

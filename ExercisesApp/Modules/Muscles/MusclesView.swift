@@ -33,11 +33,6 @@ class MusclesView: ViewController, MusclesViewInput {
         super.viewDidLoad()
         setupUI()
         output?.viewDidLoad()
-        print("TEST")
-        let foo = CoreDataManager.shared.loadWorkouts()
-
-        print(type(of: foo))
-        print(foo)
     }
     private func setupUI() {
         title = "Muscles"
