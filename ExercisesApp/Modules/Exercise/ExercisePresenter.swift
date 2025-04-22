@@ -1,14 +1,14 @@
 import Foundation
 
 class ExercisePresenter {
-    private let exercise: Exercise
+    private let exercise: ExerciseEntity
 
     weak var view: ExerciseViewInput?
     var interactor: ExerciseInteractorInput
     // var router: HeroesRouterInput
 
     init(
-        exercise: Exercise,
+        exercise: ExerciseEntity,
         view: ExerciseViewInput,
         interactor: ExerciseInteractorInput
         // router: HeroesRouterInput
@@ -25,7 +25,7 @@ class ExercisePresenter {
 }
 
 extension ExercisePresenter: ExerciseInteractorOutput {
-    func didLoadExercise(_ exercise: Exercise) {
+    func didLoadExercise(_ exercise: ExerciseEntity) {
         view?.showExercise(exercise)
     }
 }

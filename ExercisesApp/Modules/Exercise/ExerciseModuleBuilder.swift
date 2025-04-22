@@ -1,7 +1,7 @@
 import UIKit
 
 class ExerciseModuleBuilder {
-    static func build(_ exercise: Exercise) -> UIViewController {
+    static func build(_ exercise: ExerciseEntity) -> UIViewController {
         let view = ExerciseView()
         let interactor = ExerciseInteractor()
         // let router = ExerciseRouter()

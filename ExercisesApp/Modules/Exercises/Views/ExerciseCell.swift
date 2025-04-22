@@ -9,8 +9,11 @@ class ExerciseCell: UITableViewCell {
         return img
     }()
     private let nameLabel = UILabel()
-    private let levelLabel = UILabel()
-    private let categoryLabel = UILabel()
+    private let descriptionLabel = {
+        let label = UILabel()
+        label.numberOfLines = 2
+        return label
+    }()
     private lazy var mainStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
             image,
@@ -25,8 +28,7 @@ class ExerciseCell: UITableViewCell {
     private lazy var rightStack = {
         let stack = UIStackView(arrangedSubviews: [
             nameLabel,
-            levelLabel,
-            categoryLabel,
+            descriptionLabel,
         ])
 
         stack.spacing = 4
@@ -53,10 +55,9 @@ class ExerciseCell: UITableViewCell {
         }
     }
 
-    func configure(_ exercise: Exercise) {
-        nameLabel.text = exercise.name
-        levelLabel.text = "Level: \(exercise.level)"
-        categoryLabel.text = "Category: \(exercise.category)"
+    func configure(_ exercise: ExerciseEntity) {
+        nameLabel.text = exercise.name.localized
+        descriptionLabel.text = exercise.description.localized
 
         if let imageUrl = exercise.imageUrl {
             self.image.kf.setImage(with: imageUrl)
