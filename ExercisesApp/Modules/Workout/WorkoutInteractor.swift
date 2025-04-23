@@ -2,17 +2,17 @@ import Foundation
 
 protocol WorkoutInteractorInput {
     var output: WorkoutInteractorOutput? {get set}
-    func loadItems()
+    func loadWorkout(_ item: Workout)
 }
 
 protocol WorkoutInteractorOutput: AnyObject {
-  func didLoadItems(_ items: [Workout])
+    func didLoadWorkout(_ item: Workout)
 }
 
 class WorkoutInteractor: WorkoutInteractorInput {
     weak var output: WorkoutInteractorOutput?
 
-    func loadItems() {
-        // output?.didLoadItems(...)
+    func loadWorkout(_ item: Workout) {
+        output?.didLoadWorkout(item)
     }
 }

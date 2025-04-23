@@ -9,6 +9,9 @@ public class WorkoutExercise: NSManagedObject {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<WorkoutExercise> {
         return NSFetchRequest<WorkoutExercise>(entityName: String(describing: WorkoutExercise.self))
     }
+    lazy var exercise: ExerciseEntity? = {
+        ExerciseManager.shared.exercises.first(where: { $0.id == exerciseId })
+    }()
 }
 
 extension WorkoutExercise: CoreDataModel {}

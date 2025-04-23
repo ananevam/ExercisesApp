@@ -1,12 +1,13 @@
 import UIKit
 
 class WorkoutModuleBuilder {
-    static func build() -> UIViewController {
+    static func build(_ workout: Workout) -> UIViewController {
         let view = WorkoutView()
         let interactor = WorkoutInteractor()
         let router = WorkoutRouter()
 
         let presenter = WorkoutPresenter(
+            workout: workout,
             view: view,
             interactor: interactor,
             router: router

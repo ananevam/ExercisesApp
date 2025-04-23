@@ -1,6 +1,7 @@
 import Foundation
 
 struct ExerciseEntity: Decodable {
+    let id: String
     let name: LocalizedValue<[String: String]>
     let description: LocalizedValue<[String: String]>
     let primaryMuscles: [String]

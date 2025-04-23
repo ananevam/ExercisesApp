@@ -75,6 +75,8 @@ extension WorkoutListView: UITableViewDataSource {
 
 extension WorkoutListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let exercise = items[indexPath.row]
+        output?.didSelectItem(exercise)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     func tableView(_ tableView: UITableView,

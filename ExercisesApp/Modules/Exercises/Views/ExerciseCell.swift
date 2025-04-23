@@ -63,4 +63,12 @@ class ExerciseCell: UITableViewCell {
             self.image.kf.setImage(with: imageUrl)
         }
     }
+    func configure(_ workoutExercise: WorkoutExercise) {
+        nameLabel.text = workoutExercise.exercise?.name.localized ?? "None"
+        descriptionLabel.text = workoutExercise.exercise?.description.localized ?? "None"
+
+        if let imageUrl = workoutExercise.exercise?.imageUrl {
+            self.image.kf.setImage(with: imageUrl)
+        }
+    }
 }

@@ -11,10 +11,10 @@ class WorkoutListRouter: WorkoutListRouterInput {
     weak var viewController: UIViewController?
 
     func navigateToItem(_ item: Workout) {
-        // viewController?.navigationController?.pushViewController(
-        //     ItemModuleBuilder.build(item),
-        //     animated: true
-        // )
+        viewController?.navigationController?.pushViewController(
+            WorkoutModuleBuilder.build(item),
+            animated: true
+        )
     }
     func presentAddWorkoutAlert(completion: @escaping (String) -> Void) {
         let alert = UIAlertController(title: "Create workout", message: nil, preferredStyle: .alert)
