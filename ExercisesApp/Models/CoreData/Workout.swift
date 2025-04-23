@@ -5,9 +5,9 @@ public class Workout: NSManagedObject {
     @NSManaged public var id: UUID
     @NSManaged public var name: String
     @NSManaged public var createdAt: Date
-    @NSManaged public var exercises: NSSet?
+    @NSManaged public var exercises: Set<WorkoutExercise>?
     var exercisesArray: [WorkoutExercise] {
-        (exercises as? Set<WorkoutExercise>)?.sorted { $0.exerciseId < $1.exerciseId } ?? []
+        exercises?.sorted { $0.exerciseId < $1.exerciseId } ?? []
     }
 
     convenience init(name: String,

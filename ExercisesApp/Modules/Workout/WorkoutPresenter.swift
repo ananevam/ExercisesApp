@@ -1,5 +1,9 @@
 import Foundation
 
+protocol ExerciseSelectionDelegate: AnyObject {
+    func didSelectExercise(_ exercise: ExerciseEntity)
+}
+
 class WorkoutPresenter {
     weak var view: WorkoutViewInput?
     var interactor: WorkoutInteractorInput
@@ -20,14 +24,22 @@ class WorkoutPresenter {
 }
 
 extension WorkoutPresenter: WorkoutInteractorOutput {
+    func didAddExercise(_ item: Workout) {
+        view?.showWorkout(item)
+    }
+
     func didLoadWorkout(_ item: Workout) {
         view?.showWorkout(item)
     }
 }
 
 extension WorkoutPresenter: WorkoutViewOutput {
+    func didTapDelete(_ item: WorkoutExercise) {
+        interactor.deleteWorkoutExercise(item)
+    }
+
     func didTapAddExercise() {
-        router.navigateToMuscles(exerciseSelectionDelegate: view)
+        router.navigateToMuscles(exerciseSelectionDelegate: self)
     }
 
     func didSelectItem(_ item: Workout) {
@@ -36,5 +48,10 @@ extension WorkoutPresenter: WorkoutViewOutput {
 
     func viewDidLoad() {
         interactor.loadWorkout(workout)
+    }
+}
+extension WorkoutPresenter: ExerciseSelectionDelegate {
+    func didSelectExercise(_ exercise: ExerciseEntity) {
+        interactor.addExercise(to: workout, exercise: exercise)
     }
 }

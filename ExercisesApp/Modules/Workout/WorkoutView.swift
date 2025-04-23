@@ -1,24 +1,17 @@
 import UIKit
 
-protocol WorkoutViewInput: AnyObject, ExerciseSelectionDelegate {
+protocol WorkoutViewInput: AnyObject {
     var output: WorkoutViewOutput? { get set }
     func showWorkout(_ item: Workout)
-    func didSelectExercise(_ exercise: ExerciseEntity)
-
 }
 protocol WorkoutViewOutput: AnyObject {
     func viewDidLoad()
     func didSelectItem(_ item: Workout)
+    func didTapDelete(_ item: WorkoutExercise)
     func didTapAddExercise()
 }
-protocol ExerciseSelectionDelegate: AnyObject {
-    func didSelectExercise(_ exercise: ExerciseEntity)
-}
-class WorkoutView: ViewController, WorkoutViewInput {
-    func didSelectExercise(_ exercise: ExerciseEntity) {
-        print("SELECT \(exercise.name)")
-    }
 
+class WorkoutView: ViewController, WorkoutViewInput {
     var output: WorkoutViewOutput?
 
     private var workoutExercises: [WorkoutExercise] = []
@@ -82,5 +75,19 @@ extension WorkoutView: UITableViewDataSource {
 extension WorkoutView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let item = workoutExercises[indexPath.row]
+        let deleteAction = UIContextualAction(
+            style: .destructive, title: nil
+        ) { [weak self] (_, _, completionHandler) in
+            self?.output?.didTapDelete(item)
+            completionHandler(true)
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
