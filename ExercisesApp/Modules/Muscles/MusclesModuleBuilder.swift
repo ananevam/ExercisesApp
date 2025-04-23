@@ -1,7 +1,7 @@
 import UIKit
 
 class MusclesModuleBuilder {
-    static func build() -> UIViewController {
+    static func build(exerciseSelectionDelegate: ExerciseSelectionDelegate?) -> UIViewController {
         let view = MusclesView()
         let interactor = MusclesInteractor()
         let router = MusclesRouter()
@@ -9,7 +9,8 @@ class MusclesModuleBuilder {
         let presenter = MusclesPresenter(
             view: view,
             interactor: interactor,
-            router: router
+            router: router,
+            exerciseSelectionDelegate: exerciseSelectionDelegate
         )
 
         view.output = presenter

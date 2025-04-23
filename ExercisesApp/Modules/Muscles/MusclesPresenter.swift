@@ -4,15 +4,18 @@ class MusclesPresenter {
     weak var view: MusclesViewInput?
     var interactor: MusclesInteractorInput
     var router: MusclesRouterInput
+    var exerciseSelectionDelegate: ExerciseSelectionDelegate?
 
     init(
         view: MusclesViewInput,
         interactor: MusclesInteractorInput,
-        router: MusclesRouterInput
+        router: MusclesRouterInput,
+        exerciseSelectionDelegate: ExerciseSelectionDelegate?
     ) {
         self.view = view
         self.interactor = interactor
         self.router = router
+        self.exerciseSelectionDelegate = exerciseSelectionDelegate
     }
 }
 
@@ -24,7 +27,7 @@ extension MusclesPresenter: MusclesInteractorOutput {
 
 extension MusclesPresenter: MusclesViewOutput {
     func didSelectItem(_ item: MuscleEntity) {
-        router.navigateToItem(item)
+        router.navigateToItem(item, exerciseSelectionDelegate: exerciseSelectionDelegate)
     }
 
     func viewDidLoad() {

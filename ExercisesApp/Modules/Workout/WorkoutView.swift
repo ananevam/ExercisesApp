@@ -1,8 +1,9 @@
 import UIKit
 
-protocol WorkoutViewInput: AnyObject {
+protocol WorkoutViewInput: AnyObject, ExerciseSelectionDelegate {
     var output: WorkoutViewOutput? { get set }
     func showWorkout(_ item: Workout)
+    func didSelectExercise(_ exercise: ExerciseEntity)
 
 }
 protocol WorkoutViewOutput: AnyObject {
@@ -10,8 +11,14 @@ protocol WorkoutViewOutput: AnyObject {
     func didSelectItem(_ item: Workout)
     func didTapAddExercise()
 }
-
+protocol ExerciseSelectionDelegate: AnyObject {
+    func didSelectExercise(_ exercise: ExerciseEntity)
+}
 class WorkoutView: ViewController, WorkoutViewInput {
+    func didSelectExercise(_ exercise: ExerciseEntity) {
+        print("SELECT \(exercise.name)")
+    }
+
     var output: WorkoutViewOutput?
 
     private var workoutExercises: [WorkoutExercise] = []

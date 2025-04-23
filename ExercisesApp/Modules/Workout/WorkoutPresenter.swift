@@ -27,7 +27,7 @@ extension WorkoutPresenter: WorkoutInteractorOutput {
 
 extension WorkoutPresenter: WorkoutViewOutput {
     func didTapAddExercise() {
-        router.navigateToMuscles()
+        router.navigateToMuscles(exerciseSelectionDelegate: view)
     }
 
     func didSelectItem(_ item: Workout) {

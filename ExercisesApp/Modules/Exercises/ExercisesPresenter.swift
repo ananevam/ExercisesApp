@@ -6,16 +6,19 @@ class ExercisesPresenter {
     var router: ExercisesRouterInput
     private var allExercises: [ExerciseEntity] = []
     private let mucle: MuscleEntity?
+    private let exerciseSelectionDelegate: ExerciseSelectionDelegate?
     init(
         mucle: MuscleEntity?,
         view: ExercisesViewInput,
         interactor: ExercisesInteractorInput,
-        router: ExercisesRouterInput
+        router: ExercisesRouterInput,
+        exerciseSelectionDelegate: ExerciseSelectionDelegate?
     ) {
         self.mucle = mucle
         self.view = view
         self.interactor = interactor
         self.router = router
+        self.exerciseSelectionDelegate = exerciseSelectionDelegate
     }
 }
 
@@ -28,7 +31,12 @@ extension ExercisesPresenter: ExercisesInteractorOutput {
 
 extension ExercisesPresenter: ExercisesViewOutput {
     func didSelectExercise(_ exercise: ExerciseEntity) {
-        router.navigateToExercise(exercise)
+        if let exerciseSelectionDelegate = exerciseSelectionDelegate {
+            exerciseSelectionDelegate.didSelectExercise(exercise)
+            router.backTwice()
+        } else {
+            router.navigateToExercise(exercise)
+        }
     }
 
     func viewDidLoad() {
