@@ -10,11 +10,6 @@ public class Workout: NSManagedObject {
         (exercises as? Set<WorkoutExercise>)?.sorted { $0.exerciseId < $1.exerciseId } ?? []
     }
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Workout> {
-        let request = NSFetchRequest<Workout>(entityName: String(describing: Workout.self))
-        return request
-    }
-
     convenience init(name: String,
                      context: NSManagedObjectContext = CoreDataManager.shared.viewContext) {
         self.init(context: context)
@@ -26,26 +21,21 @@ public class Workout: NSManagedObject {
         id = UUID()
         createdAt = Date()
     }
-    static func fetchAll(context: NSManagedObjectContext = CoreDataManager.shared.viewContext) -> [Workout] {
-        let fetchRequest: NSFetchRequest<Workout> = fetchRequest()
 
-        do {
-            return try context.fetch(fetchRequest)
-        } catch {
-            return []
-        }
-    }
-    static func fetchBy(
-        id: UUID, context: NSManagedObjectContext = CoreDataManager.shared.viewContext
-    ) -> Workout? {
-        let request: NSFetchRequest<Workout> = fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        request.fetchLimit = 1
+//    static func fetchBy(
+//        id: UUID, context: NSManagedObjectContext = CoreDataManager.shared.viewContext
+//    ) -> Workout? {
+//        let request: NSFetchRequest<Workout> = fetchRequest()
+//        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+//        request.fetchLimit = 1
+//
+//        do {
+//            return try context.fetch(request).first
+//        } catch {
+//            return nil
+//        }
+//    }
+}
+extension Workout: CoreDataModel {
 
-        do {
-            return try context.fetch(request).first
-        } catch {
-            return nil
-        }
-    }
 }

@@ -16,20 +16,20 @@ class WorkoutListInteractor: WorkoutListInteractorInput {
     weak var output: WorkoutListInteractorOutput?
 
     func loadItems() {
-        output?.didLoadItems(Workout.fetchAll())
+        output?.didLoadItems(Workout.all)
     }
     func saveWorkout(name: String) {
-        _ = Workout(name: name)
-        CoreDataManager.shared.saveContext()
+        let item = Workout(name: name)
+        item.save()
         loadItems()
     }
     func updateWorkout(_ item: Workout, name: String) {
         item.name = name
-        CoreDataManager.shared.saveContext()
+        item.save()
         loadItems()
     }
     func deleteWorkout(_ item: Workout) {
-        CoreDataManager.shared.delete(item)
+        item.delete()
         loadItems()
     }
 }

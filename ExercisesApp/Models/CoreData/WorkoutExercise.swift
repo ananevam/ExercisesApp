@@ -10,3 +10,5 @@ public class WorkoutExercise: NSManagedObject {
         return NSFetchRequest<WorkoutExercise>(entityName: String(describing: WorkoutExercise.self))
     }
 }
+
+extension WorkoutExercise: CoreDataModel {}

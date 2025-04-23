@@ -18,25 +18,4 @@ final class CoreDataManager {
     }
 
     private init() {}
-
-    func saveContext() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-
-    func delete(_ item: NSManagedObject) {
-        viewContext.delete(item)
-
-        do {
-            try viewContext.save()
-        } catch {
-            print("Unresolved error: \(error)")
-        }
-    }
 }
