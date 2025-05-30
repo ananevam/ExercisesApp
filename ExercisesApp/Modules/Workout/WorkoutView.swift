@@ -88,7 +88,7 @@ extension WorkoutView: UITableViewDelegate {
             completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
-        
+
         let editAction = UIContextualAction(
             style: .normal, title: nil
         ) { [weak self] (_, _, completionHandler) in
