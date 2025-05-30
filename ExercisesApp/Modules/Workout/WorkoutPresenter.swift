@@ -42,6 +42,10 @@ extension WorkoutPresenter: WorkoutViewOutput {
         router.navigateToMuscles(exerciseSelectionDelegate: self)
     }
 
+    func didTapEdit(_ item: WorkoutExercise) {
+        router.navigateToEdit(item)
+    }
+
     func didSelectItem(_ item: Workout) {
         // router.navigateToItem(item)
     }

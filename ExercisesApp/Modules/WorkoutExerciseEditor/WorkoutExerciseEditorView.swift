@@ -17,6 +17,7 @@ class WorkoutExerciseEditorView: ViewController, WorkoutExerciseEditorViewInput 
         output?.viewDidLoad()
     }
     func showItem(_ item: WorkoutExercise) {
+        self.title = item.exercise?.name.localized
         // self.items = items
         // tableView.reloadData()
     }

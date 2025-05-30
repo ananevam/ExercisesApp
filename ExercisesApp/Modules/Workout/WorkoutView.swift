@@ -9,6 +9,7 @@ protocol WorkoutViewOutput: AnyObject {
     func didSelectItem(_ item: Workout)
     func didTapDelete(_ item: WorkoutExercise)
     func didTapAddExercise()
+    func didTapEdit(_ item: WorkoutExercise)
 }
 
 class WorkoutView: ViewController, WorkoutViewInput {
@@ -87,7 +88,16 @@ extension WorkoutView: UITableViewDelegate {
             completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
+        
+        let editAction = UIContextualAction(
+            style: .normal, title: nil
+        ) { [weak self] (_, _, completionHandler) in
+            self?.output?.didTapEdit(item)
+            completionHandler(true)
+        }
+        editAction.image = UIImage(systemName: "pencil")
+        editAction.backgroundColor = .systemOrange
 
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
 }

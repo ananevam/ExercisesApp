@@ -5,6 +5,10 @@ public class WorkoutExercise: NSManagedObject {
     @NSManaged public var id: UUID
     @NSManaged public var exerciseId: String
     @NSManaged public var workout: Workout
+    @NSManaged public var sets: Set<ExerciseSet>?
+    var setsArray: [ExerciseSet] {
+        sets?.sorted { $0.id < $1.id } ?? []
+    }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<WorkoutExercise> {
         return NSFetchRequest<WorkoutExercise>(entityName: String(describing: WorkoutExercise.self))
@@ -24,4 +28,6 @@ public class WorkoutExercise: NSManagedObject {
     }()
 }
 
-extension WorkoutExercise: CoreDataModel {}
+extension WorkoutExercise: CoreDataModel {
+
+}

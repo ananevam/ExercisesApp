@@ -3,6 +3,7 @@ import UIKit
 protocol WorkoutRouterInput {
     func navigateToItem(_ item: Workout)
     func navigateToMuscles(exerciseSelectionDelegate: ExerciseSelectionDelegate?)
+    func navigateToEdit(_ item: WorkoutExercise)
 }
 
 class WorkoutRouter: WorkoutRouterInput {
@@ -17,6 +18,12 @@ class WorkoutRouter: WorkoutRouterInput {
     func navigateToMuscles(exerciseSelectionDelegate: ExerciseSelectionDelegate?) {
         viewController?.navigationController?.pushViewController(
             MusclesModuleBuilder.build(exerciseSelectionDelegate: exerciseSelectionDelegate),
+            animated: true
+        )
+    }
+    func navigateToEdit(_ item: WorkoutExercise) {
+        viewController?.navigationController?.pushViewController(
+            WorkoutExerciseEditorModuleBuilder.build(workoutExercise: item),
             animated: true
         )
     }
