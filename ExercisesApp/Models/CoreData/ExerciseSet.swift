@@ -4,7 +4,7 @@ import CoreData
 public class ExerciseSet: NSManagedObject {
     @NSManaged public var id: UUID
     @NSManaged public var reps: Int
-    @NSManaged public var weight: Decimal
+    @NSManaged public var weight: NSDecimalNumber
     @NSManaged public var exercise: WorkoutExercise
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ExerciseSet> {
@@ -16,7 +16,7 @@ public class ExerciseSet: NSManagedObject {
                      context: NSManagedObjectContext = CoreDataManager.shared.viewContext) {
         self.init(context: context)
         self.reps = reps
-        self.weight = weight
+        self.weight = NSDecimalNumber(decimal: weight)
         self.exercise = exercise
     }
     public override func awakeFromInsert() {

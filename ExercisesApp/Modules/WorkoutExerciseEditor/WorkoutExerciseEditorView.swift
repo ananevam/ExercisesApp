@@ -23,14 +23,19 @@ class WorkoutExerciseEditorView: ViewController, WorkoutExerciseEditorViewInput 
         stack.spacing = 8
         return stack
     }()
-    
+
     private lazy var saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Save", for: .normal)
         return button
     }()
 
-    private var setsCount = 1 {
+//    private var setsCount = 1 {
+//        didSet {
+//            updateSetInputs()
+//        }
+//    }
+    private var sets: [ExerciseSet] = [] {
         didSet {
             updateSetInputs()
         }
@@ -71,15 +76,16 @@ class WorkoutExerciseEditorView: ViewController, WorkoutExerciseEditorViewInput 
             $0.bottom.equalToSuperview().inset(16)
         }
         saveButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.item?.sets = Set(
-                self?.setInputViews.map{
-                    ExerciseSet(
-                        exercise: self!.item!,
-                        reps: Int($0.repsField.text!) ?? 1,
-                        weight: Decimal(string: $0.weightField.text!) ?? 0.0
-                    )
-                } ?? []
-            )
+//            self?.item?.sets = Set(
+//                self?.setInputViews.map{
+//                    ExerciseSet(
+//                        exercise: self!.item!,
+//                        reps: Int($0.repsField.text!) ?? 1,
+//                        weight: Decimal(string: $0.weightField.text!) ?? 0.0
+//                    )
+//                } ?? []
+//            )
+            self?.item?.save()
         }), for: .touchUpInside)
     }
     var item: WorkoutExercise?
@@ -88,11 +94,12 @@ class WorkoutExerciseEditorView: ViewController, WorkoutExerciseEditorViewInput 
         self.item = item
         setupSetsHeader()
         mainStack.addArrangedSubview(setsStackView)
-        updateSetInputs()
-        setsCount = item.setsArray.isEmpty ? 1 : item.setsArray.count
-        item.setsArray.enumerated().forEach { index, exerciseSet in
-            setInputViews[index].setValues(reps: exerciseSet.reps, weight: exerciseSet.weight)
-        }
+//        updateSetInputs()
+        sets = item.setsArray
+//        setsCount = item.setsArray.isEmpty ? 1 : item.setsArray.count
+//        item.setsArray.enumerated().forEach { index, exerciseSet in
+//            setInputViews[index].setValues(reps: exerciseSet.reps, weight: exerciseSet.weight)
+//        }
     }
     private func setupSetsHeader() {
         let headerLabel = UILabel()
@@ -107,7 +114,7 @@ class WorkoutExerciseEditorView: ViewController, WorkoutExerciseEditorViewInput 
         minusButton.addTarget(self, action: #selector(decreaseSet), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(increaseSet), for: .touchUpInside)
 
-        setsLabel.text = "\(setsCount)"
+        // setsLabel.text = "\(setsCount)"
         setsLabel.font = .systemFont(ofSize: 18)
         setsLabel.textAlignment = .center
 
@@ -125,26 +132,32 @@ class WorkoutExerciseEditorView: ViewController, WorkoutExerciseEditorViewInput 
     }
 
     private func updateSetInputs() {
-        setsLabel.text = "\(setsCount)"
-        setInputViews.forEach { $0.removeFromSuperview() }
-        setInputViews.removeAll()
-
-        for index in 1...setsCount {
-            let inputRow = SetInputRowView(setNumber: index)
+        setsLabel.text = "\(sets.count)"
+//        setInputViews.forEach { $0.removeFromSuperview() }
+//        setInputViews.removeAll()
+        setsStackView.removeAllArrangedSubviews()
+        sets.enumerated().forEach { index, exerciseSet in
+            let inputRow = SetInputRowView(setNumber: index + 1)
+            inputRow.setValues(reps: exerciseSet.reps, weight: 0.0)
             setsStackView.addArrangedSubview(inputRow)
-            setInputViews.append(inputRow)
         }
+
+//        for index in 1...setsCount {
+//            let inputRow = SetInputRowView(setNumber: index)
+//            setsStackView.addArrangedSubview(inputRow)
+//            setInputViews.append(inputRow)
+//        }
     }
 
     @objc private func increaseSet() {
-        if setsCount < 10 {
-            setsCount += 1
+        if sets.count < 10 {
+            sets.append(ExerciseSet(exercise: item!, reps: 0, weight: Decimal(0.0)))
         }
     }
 
     @objc private func decreaseSet() {
-        if setsCount > 1 {
-            setsCount -= 1
+        if sets.count > 1 {
+            sets.removeLast()
         }
     }
 }
